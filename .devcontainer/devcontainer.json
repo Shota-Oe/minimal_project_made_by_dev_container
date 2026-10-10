@@ -1,0 +1,34 @@
+{
+  "name": "node-fastapi-postgres",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "24"
+    },
+    "ghcr.io/anthropics/devcontainer-features/claude-code:1": {}
+  },
+  "overrideFeatureInstallOrder": [
+    "ghcr.io/devcontainers/features/node",
+    "ghcr.io/anthropics/devcontainer-features/claude-code"
+  ],
+  "forwardPorts": [3000, 8000, "db:5432"],
+  "postCreateCommand": "sudo chown -R vscode:vscode /home/vscode/.claude && pip install -r backend/requirements-dev.txt && npm --prefix frontend install",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "vitest.explorer",
+        "anthropic.claude-code"
+      ],
+      "settings": {
+        "python.testing.pytestEnabled": true,
+        "python.testing.cwd": "${workspaceFolder}/backend"
+      }
+    }
+  }
+}
